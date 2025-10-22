@@ -1,0 +1,13 @@
+# Quartz构建产物
+node_modules/
+.quartz-cache/
+public/
+quartz/
+
+# Obsidian临时文件
+.obsidian/
+*.tmp
+
+# 系统文件
+.DS_Store
+Thumbs.db

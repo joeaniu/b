@@ -1,0 +1,82 @@
+name: Deploy Quartz to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.md'
+      - '**.png'
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.gif'
+      - '**.svg'
+      - 'quartz.config.ts'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:  # 允许手动触发
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout blog repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整历史用于Git日期
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      
+      - name: Clone Quartz
+        run: |
+          git clone https://github.com/jackyzha0/quartz.git quartz-build
+      
+      - name: Install Quartz dependencies
+        run: |
+          cd quartz-build
+          pnpm install
+      
+      - name: Prepare content
+        run: |
+          # 复制配置文件
+          cp quartz.config.ts quartz-build/
+          
+          # 复制所有内容到content目录（排除Git和GitHub目录）
+          mkdir -p quartz-build/content
+          rsync -av --exclude='.git' \
+                    --exclude='.github' \
+                    --exclude='node_modules' \
+                    --exclude='quartz.config.ts' \
+                    --exclude='README.md' \
+                    ./ quartz-build/content/
+      
+      - name: Build Quartz
+        run: |
+          cd quartz-build
+          npx quartz build
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: quartz-build/public
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
