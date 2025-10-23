@@ -6,7 +6,7 @@
 
 🌐 **网站地址**：[https://joeaniu.github.io/b/](https://joeaniu.github.io/b/)
 
-## 仓库说明
+## 1. 仓库说明
 
 此仓库是独立的博客发布仓库，嵌套在主vault的 `published/` 目录中：
 
@@ -26,7 +26,7 @@
 - 此仓库独立管理，完全隔离私密内容
 - 一个工作区同时管理两个Git仓库
 
-## 自动部署
+## 2. 自动部署
 
 每次推送到 `main` 分支时，GitHub Actions 会自动：
 
@@ -39,7 +39,7 @@
 
 查看部署状态：[Actions](https://github.com/joeaniu/b/actions)
 
-## 本地预览
+## 3. 本地预览
 
 在外部Quartz目录设置软链接：
 
@@ -55,14 +55,14 @@ node ./quartz/bootstrap-cli.mjs build --serve
 # 访问 http://localhost:8080
 ```
 
-## 发布新文章
+## 4. 发布新文章
 
-### 在Obsidian中编辑
+### 4.1. 在Obsidian中编辑
 
 1. 在 `published/` 目录创建或编辑 Markdown 文件
 2. 保存后在Git中提交并推送
 
-### 在Cursor/终端中操作
+### 4.2. 在Cursor/终端中操作
 
 ```bash
 # 查看更改
@@ -81,7 +81,7 @@ git push
 # 等待2-5分钟后访问网站查看更新
 ```
 
-## 技术栈
+## 5. 技术栈
 
 - 📝 **内容编辑**：Obsidian / Markdown
 - 🔨 **静态生成**：Quartz v4
@@ -89,9 +89,9 @@ git push
 - 🤖 **CI/CD**：GitHub Actions
 - 🎨 **主题**：自定义配置（`quartz.config.ts`）
 
-## 配置文件
+## 6. 配置文件
 
-### `quartz.config.ts`
+### 6.1. `quartz.config.ts`
 
 主要配置项：
 - `pageTitle`: 网站标题
@@ -102,11 +102,11 @@ git push
 
 修改配置后提交推送，GitHub Actions会自动重新构建。
 
-### `.github/workflows/deploy.yml`
+### 6.2. `.github/workflows/deploy.yml`
 
 GitHub Actions工作流配置，定义了自动部署流程。
 
-## 特性
+## 7. 特性
 
 - ✅ **实时搜索**：全文搜索功能
 - ✅ **双向链接**：Obsidian风格的 `[[链接]]`
@@ -117,26 +117,26 @@ GitHub Actions工作流配置，定义了自动部署流程。
 - ✅ **RSS订阅**：自动生成
 - ✅ **站点地图**：SEO优化
 
-## 维护指南
+## 8. 维护指南
 
-### 更新依赖
+### 8.1. 更新依赖
 
 Quartz会在每次部署时自动使用最新版本，无需手动维护。
 
-### 故障排查
+### 8.2. 故障排查
 
 如果部署失败：
 1. 查看 [Actions日志](https://github.com/joeaniu/b/actions)
 2. 检查 `quartz.config.ts` 语法
 3. 确认Markdown文件格式正确
 
-### 性能优化
+### 8.3. 性能优化
 
 - 图片建议使用外部图床（PicGo + GitHub）
 - 单个文章建议不超过1MB
 - 避免上传视频等大文件
 
-## 参考资源
+## 9. 参考资源
 
 - [Quartz官方文档](https://quartz.jzhao.xyz/)
 - [GitHub Pages文档](https://docs.github.com/pages)

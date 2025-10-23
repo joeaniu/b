@@ -10,7 +10,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "我的知识库",
+    pageTitle: "Essential Complexity",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -23,6 +23,8 @@ const config: QuartzConfig = {
       ".obsidian",
       "README.md",  // 仓库说明文档
       "**/*.excalidraw.md",
+      "quartz-build/**",
+      ".github/**",
     ],
     defaultDateType: "modified",
     theme: {

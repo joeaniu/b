@@ -1,0 +1,83 @@
+// 自定义样式 - Logo、Favicon和Footer定制
+
+// ============================================
+// 1. 在PageTitle前添加Logo
+// ============================================
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-title::before {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-image: url("https://cdn.jsdelivr.net/gh/joeaniu/images@master/2025/10/ec_1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+  border-radius: 4px;  // 圆角效果
+}
+
+// 移动端Logo尺寸调整
+@media (max-width: 768px) {
+  .page-title::before {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+// ============================================
+// 2. Footer定制 - 简化版权信息
+// ============================================
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid var(--lightgray);
+}
+
+footer p {
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin: 0;
+}
+
+// 隐藏默认的链接列表
+footer ul {
+  display: none !important;
+}
+
+// 自定义版权文本
+footer p::after {
+  content: "Created with Quartz v4.5.2 © 2025";
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+footer a {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+// ============================================
+// 3. 其他优化（可选）
+// ============================================
+
+// 优化移动端间距
+@media (max-width: 768px) {
+  footer {
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+  }
+}
+

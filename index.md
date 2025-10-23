@@ -2,11 +2,12 @@
 title: 欢迎来到我的知识库
 date: 2025-10-21
 ---
+![ec_1.png](https://cdn.jsdelivr.net/gh/joeaniu/images@master/2025/10/ec_1.png)
 
 # 欢迎来到我的知识库 🌟
 
 这里是我的个人知识管理和分享平台，记录学习、思考和创作的过程。
-![ec_1.png](https://cdn.jsdelivr.net/gh/joeaniu/images@master/2025/10/ec_1.png)
+
 
 ## 1. 📚 最近更新
 
@@ -27,8 +28,8 @@ date: 2025-10-21
 ## 4. 📬 联系方式
 
 如有任何问题或建议，欢迎通过以下方式联系我：
-- GitHub: [Your GitHub]
-- Email: your@email.com
+- GitHub: [https://github.com/joeaniu]
+- Email: joeaniu.ec@gmail.com
 
 ---
 

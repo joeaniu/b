@@ -12,6 +12,8 @@ on:
       - '**.gif'
       - '**.svg'
       - 'quartz.config.ts'
+      - 'quartz.layout.ts'
+      - 'styles/**'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:  # 允许手动触发
 
@@ -57,13 +59,39 @@ jobs:
           # 复制配置文件
           cp quartz.config.ts quartz-build/
           
-          # 复制所有内容到content目录（排除Git和GitHub目录）
+          # 复制布局文件（如果存在）
+          if [ -f "quartz.layout.ts" ]; then
+            echo "复制自定义布局文件..."
+            cp quartz.layout.ts quartz-build/
+          fi
+          
+          # 复制自定义样式（如果存在）
+          if [ -d "styles" ] && [ -f "styles/custom.scss" ]; then
+            echo "复制自定义样式..."
+            mkdir -p quartz-build/quartz/styles
+            cp styles/custom.scss quartz-build/quartz/styles/
+          fi
+          
+          # 下载favicon（直接从CDN获取）
+          echo "下载favicon from CDN..."
+          mkdir -p quartz-build/quartz/static
+          curl -sL -o quartz-build/quartz/static/icon.png \
+            "https://cdn.jsdelivr.net/gh/joeaniu/images@master/2025/10/ec_1.png" || \
+            echo "Warning: Failed to download favicon, using default"
+          
+          # 复制所有内容到content目录（排除特殊目录）
           mkdir -p quartz-build/content
           rsync -av --exclude='.git' \
                     --exclude='.github' \
                     --exclude='node_modules' \
                     --exclude='quartz.config.ts' \
+                    --exclude='quartz.layout.ts' \
+                    --exclude='styles' \
                     --exclude='README.md' \
+                    --exclude='GITHUB-PAGES-CONFIG.md' \
+                    --exclude='*STEPS*.md' \
+                    --exclude='*GUIDE*.md' \
+                    --exclude='*SUMMARY*.md' \
                     ./ quartz-build/content/
       
       - name: Build Quartz
