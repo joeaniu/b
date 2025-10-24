@@ -35,6 +35,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),  // 目录
     Component.Backlinks(),         // 反向链接
   ],
+  afterBody: [],  
 }
 
 // 文件夹列表页布局
@@ -52,5 +53,6 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
+  afterBody: [],    // 正文下方的组件区域
 }
 
