@@ -85,34 +85,34 @@ jobs:
           rm -rf quartz-build/content
           mkdir -p quartz-build/content
           
-          # 复制所有内容到content目录（只复制需要的文件）
+          # 复制所有内容到content目录（使用rsync但只包含需要的文件）
           echo "复制博客内容..."
-          # 复制Markdown文件
-          find . -maxdepth 10 -name "*.md" \
-            -not -path "./.git/*" \
-            -not -path "./.github/*" \
-            -not -path "./README.md" \
-            -not -path "./GITHUB-PAGES-CONFIG.md" \
-            -exec cp --parents {} quartz-build/content/ \;
-          
-          # 复制图片文件
-          find . -maxdepth 10 \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" -o -name "*.svg" \) \
-            -not -path "./.git/*" \
-            -not -path "./.github/*" \
-            -exec cp --parents {} quartz-build/content/ \;
-          
-          # 复制CNAME文件
-          if [ -f "CNAME" ]; then
-            cp CNAME quartz-build/content/
-          fi
+          rsync -av \
+            --include='*/' \
+            --include='*.md' \
+            --include='*.png' \
+            --include='*.jpg' \
+            --include='*.jpeg' \
+            --include='*.gif' \
+            --include='*.svg' \
+            --include='CNAME' \
+            --exclude='*' \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='quartz.config.ts' \
+            --exclude='quartz.layout.ts' \
+            --exclude='styles/' \
+            --exclude='README.md' \
+            --exclude='GITHUB-PAGES-CONFIG.md' \
+            ./ quartz-build/content/
           
           # 验证复制的内容
           echo "=== 验证content目录内容 ==="
-          echo "目录结构："
-          find quartz-build/content -type f -o -type d | head -30
+          echo "目录结构（前30行）："
+          find quartz-build/content -type d | sort | head -30
           echo ""
-          echo "Markdown文件列表："
-          find quartz-build/content -name "*.md"
+          echo "文件列表（前30个）："
+          find quartz-build/content -type f | sort | head -30
       
       - name: Build Quartz
         run: |
