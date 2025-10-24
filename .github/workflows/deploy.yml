@@ -95,10 +95,15 @@ jobs:
                     --exclude='styles' \
                     --exclude='README.md' \
                     --exclude='GITHUB-PAGES-CONFIG.md' \
+                    --exclude='quartz' \
                     --exclude='*STEPS*.md' \
                     --exclude='*GUIDE*.md' \
                     --exclude='*SUMMARY*.md' \
                     ./ quartz-build/content/
+          
+          # 验证复制的内容
+          echo "验证content目录内容："
+          ls -la quartz-build/content/
       
       - name: Build Quartz
         run: |
