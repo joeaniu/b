@@ -8,6 +8,7 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],  // 清空header，不显示任何顶部导航
+  afterBody: [],  // 文章下方的共享组件区域（空）
   footer: Component.Footer({
     links: {
       // 只保留Quartz版权，去掉默认的GitHub链接等
@@ -35,7 +36,6 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),  // 目录
     Component.Backlinks(),         // 反向链接
   ],
-  afterBody: [],  
 }
 
 // 文件夹列表页布局
@@ -53,6 +53,5 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
-  afterBody: [],    // 正文下方的组件区域
 }
 
