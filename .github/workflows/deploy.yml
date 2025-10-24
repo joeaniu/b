@@ -66,9 +66,10 @@ jobs:
           fi
           
           # 复制自定义样式（如果存在）
-          if [ -d "styles" ] && [ -f "styles/custom.scss" ]; then
-            echo "复制自定义样式..."
+          if [ -f "styles/custom.scss" ]; then
+            echo "复制自定义样式 custom.scss..."
             mkdir -p quartz-build/quartz/styles
+            # 只复制custom.scss，使用Quartz自带的base.scss及其依赖
             cp styles/custom.scss quartz-build/quartz/styles/
           fi
           
