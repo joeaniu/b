@@ -1,53 +1,67 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
-// 自定义布局配置
-// 简化版本：去除默认Quartz元素，只保留版权信息
-
-// 共享组件（所有页面）
+// components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [],  // 清空header，不显示任何顶部导航
-  afterBody: [],  // 文章下方的共享组件区域（空）
+  header: [],  // 清空header，不显示顶部导航
+  afterBody: [],
   footer: Component.Footer({
     links: {
-      // 只保留Quartz版权，去掉默认的GitHub链接等
+      // 空对象 - 不显示任何链接，只保留Quartz版权
     },
   }),
 }
 
-// 默认内容页面布局
+// components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
-    Component.Breadcrumbs(),       // 面包屑导航
-    Component.ArticleTitle(),      // 文章标题
-    Component.ContentMeta(),       // 创建/修改日期
-    Component.TagList(),           // 标签
+    Component.ConditionalRender({
+      component: Component.Breadcrumbs(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ArticleTitle(),
+    Component.ContentMeta(),
+    Component.TagList(),
   ],
   left: [
-    Component.PageTitle(),         // 站点标题（会添加logo）
+    Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),            // 搜索框
-    Component.Darkmode(),          // 暗色模式切换
-    Component.DesktopOnly(Component.Explorer()),  // 文件浏览器
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Search(),
+          grow: true,
+        },
+        { Component: Component.Darkmode() },
+        { Component: Component.ReaderMode() },
+      ],
+    }),
+    Component.Explorer(),
   ],
   right: [
-    Component.Graph(),             // 知识图谱
-    Component.DesktopOnly(Component.TableOfContents()),  // 目录
-    Component.Backlinks(),         // 反向链接
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
+    Component.Backlinks(),
   ],
 }
 
-// 文件夹列表页布局
+// components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Search(),
+          grow: true,
+        },
+        { Component: Component.Darkmode() },
+      ],
+    }),
+    Component.Explorer(),
   ],
   right: [],
 }
-

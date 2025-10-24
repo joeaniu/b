@@ -2,11 +2,9 @@ import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
 /**
- * Quartz配置 - GitHub Pages博客
- * 
- * 此仓库是独立的博客发布仓库，嵌套在主vault的published/目录中
- * - 本地预览：在外部Quartz中设置软链接到此目录
- * - 自动部署：GitHub Actions克隆Quartz并使用此配置构建
+ * Quartz 4 Configuration
+ *
+ * See https://quartz.jzhao.xyz/configuration for more information.
  */
 const config: QuartzConfig = {
   configuration: {
@@ -14,18 +12,12 @@ const config: QuartzConfig = {
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
-    analytics: null,
+    analytics: {
+      provider: "plausible",
+    },
     locale: "zh-CN",
-    baseUrl: "joeaniu.github.io/b",  // GitHub Pages域名（项目站点）
-    ignorePatterns: [
-      "private",
-      "templates",
-      ".obsidian",
-      "README.md",  // 仓库说明文档
-      "**/*.excalidraw.md",
-      "quartz-build/**",
-      ".github/**",
-    ],
+    baseUrl: "joeaniu.github.io/b",
+    ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
@@ -94,7 +86,10 @@ const config: QuartzConfig = {
       }),
       Plugin.Assets(),
       Plugin.Static(),
+      Plugin.Favicon(),
       Plugin.NotFoundPage(),
+      // Comment out CustomOgImages to speed up build time
+      Plugin.CustomOgImages(),
     ],
   },
 }
