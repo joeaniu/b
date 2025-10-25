@@ -88,6 +88,13 @@ jobs:
           # 复制所有内容到content目录（使用rsync但只包含需要的文件）
           echo "复制博客内容..."
           rsync -av \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='quartz.config.ts' \
+            --exclude='quartz.layout.ts' \
+            --exclude='styles/' \
+            --exclude='README.md' \
+            --exclude='GITHUB-PAGES-CONFIG.md' \
             --include='*/' \
             --include='*.md' \
             --include='*.png' \
@@ -97,13 +104,6 @@ jobs:
             --include='*.svg' \
             --include='CNAME' \
             --exclude='*' \
-            --exclude='.git/' \
-            --exclude='.github/' \
-            --exclude='quartz.config.ts' \
-            --exclude='quartz.layout.ts' \
-            --exclude='styles/' \
-            --exclude='README.md' \
-            --exclude='GITHUB-PAGES-CONFIG.md' \
             ./ quartz-build/content/
           
           # 验证复制的内容
