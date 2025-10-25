@@ -94,8 +94,10 @@ jobs:
             --exclude='quartz.config.ts' \
             --exclude='quartz.layout.ts' \
             --exclude='styles/' \
+            --exclude='*.sh' \
             --exclude='README.md' \
             --exclude='GITHUB-PAGES-CONFIG.md' \
+            --exclude='SCRIPTS-GUIDE.md' \
             --include='*/' \
             --include='*.md' \
             --include='*.png' \
