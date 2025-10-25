@@ -90,6 +90,7 @@ jobs:
           rsync -av \
             --exclude='.git/' \
             --exclude='.github/' \
+            --exclude='quartz-build/' \
             --exclude='quartz.config.ts' \
             --exclude='quartz.layout.ts' \
             --exclude='styles/' \
